@@ -1,16 +1,16 @@
 <?php declare(strict_types=1);
 
 use PDO;
-use App\Class\Admin;
+use App\class\Category;
 use App\Utility\Functions;
-$admin = new Admin();
+$category = new Category();
 ?>
 
 <html>
     <section class="divider_50px"></section>
     <section class="main_content">
         <section>
-            <?php $admin->print_medewerkers();?>
-</section>
+            <?php $category->print_products();?>
+        </section>
     </section>
 </html>
