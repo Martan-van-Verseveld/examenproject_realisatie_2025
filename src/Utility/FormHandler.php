@@ -86,7 +86,13 @@ class FormHandler
 
             if (!DataProcessor::validateFields($sanatizedPOST, ['username', 'firstname', 'lastname', 'adres', 'city', 'phone', 'email', 'password'])) {
                 Session::set('register.error', 'Required fields not found.');
-                header("Location: ?page=register.view&id=" . $sanatizedPOST['id']);
+                header("Location: ?page=home");
+                exit();
+            }
+
+            if (!DataProcessor::validateType([$sanatizedPOST['email'] => FILTER_VALIDATE_EMAIL])) {
+                Session::set('register.error', 'Invalid email format.');
+                header("Location: ?page=home");
                 exit();
             }
 
