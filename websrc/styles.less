@@ -1,4 +1,4 @@
-@primary-color: blue;
+@primary-color: #4343FF;
 
 * {  
   margin: 0;
@@ -79,7 +79,7 @@ main#login {
         border-radius: 10px;    
     }
     
-    .form-title-login{
+    .form-title{
         color: white;
         display: flex;
         justify-content: center;
@@ -127,7 +127,93 @@ main#login {
     .form-button:hover{
         background-color: #8f8f8f;
     }
+
+    .form-back i{
+        color: white;
+        cursor: pointer;
+        position: absolute;
+        left:35%;
+        top: 28%;
+    }
 }
+
+main#register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+
+    form {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px;
+        border-radius: 10px;
+        height: 70vh;
+        width: 30vw;
+    }
+
+    .containerregister{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;    
+        background-color: #4343FF;
+        padding: 20px;
+        border-radius: 10px;    
+    }
+    
+    .form-title{
+        color: white;
+        display: flex;
+        justify-content: center;
+        font-size: 50px;
+    
+    }
+    
+    .form-label{
+        color: white;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .form-input{
+        display: flex;
+        justify-content: center;
+        border-radius: 5px;
+        padding: 5px;
+        width: 20vw;    
+        outline: 2px solid transparent; 
+    }
+    
+    .form-input:focus {
+        transition: 0.5s;
+        outline: 2px solid black; 
+    }
+    
+    .form-button{
+        margin-top: 3vh;
+        display: flex;
+        justify-content: center;
+        border-radius: 5px;
+        padding: 5px;
+        width: 10vw;   
+        color: black;
+        outline: 2px solid transparent; 
+        cursor: pointer;
+    }
+    
+    .form-button:focus{
+        transition: 0.5s;
+        outline: 2px solid black; 
+    }
+
+    .form-button:hover{
+        background-color: #8f8f8f;
+    }
+
+}
+
 
 .divider_25px {
     height: 25px;
@@ -149,7 +235,7 @@ main#login {
     }
     
     .blue_button {
-        background-color: blue;
+        background-color: #4343FF;
         border-radius: 10px;
         text-decoration: none;
         color: #fff;
