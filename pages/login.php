@@ -17,6 +17,8 @@
         <a href="?page=register">
             <button class="form-button" type="button">Register</button>
         </a>
-        <input class="form-button" type="button" name="reset" value="Reset">
+        <a href="?page=reset">
+            <button class="form-button" type="button">Reset</button>
+        </a>
     </form>
 </div>
