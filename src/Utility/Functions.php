@@ -33,6 +33,21 @@ class Functions
     }
 
     /**
+     * Checks if the user has the given permissions
+     *
+     * @param array $permissions
+     * @return bool
+     */
+    public static function checkPermissions(array $permissions): bool
+    {
+        try {
+            return in_array(Session::get('user')['rollen'], $permissions);
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+    /**
      * Converts a string to a title (first letter of each word capitalized)
      *
      * @param string $string
