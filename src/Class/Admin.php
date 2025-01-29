@@ -59,30 +59,26 @@ class Admin
     public function print_medewerkers() {
         $query = 
         "
-        SELECT * FROM gebruiker WHERE NOT rollen = klant
+        SELECT * FROM gebruiker WHERE NOT rollen = 'klant'
         LIMIT 100
         ";
 
         $results = $this->database->query($query);
         $results = $results->fetchAll(PDO::FETCH_ASSOC);
-
-        foreach ($results as $werker) 
-        {
-            ?>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <?php
-        }
+        $headers = [
+            'id', 'gebruikersnaam', 'voornaam',
+            'achternaam', 'adres', 'plaats',
+            'telefoonnummer', 'email', 'wachtwoord',
+            'rollen', 'is_geverifieerd', 'acties'
+        ];
+        $results = array_map(function($results) {
+            $results['acties'] = "
+                <a href='?page=medewerkers.view&id=" . $results['id'] . "'>View</a>
+                <a href='?page=medewerkers.edit&id=" . $results['id'] . "'>Edit</a>
+                <a href='?page=medewerkers.delete&id=" . $results['id'] . "'>Delete</a>
+            ";
+            return $results;
+        }, $results);    
+        Functions::drawTable($headers, $results);
     }
 }
