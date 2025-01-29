@@ -177,75 +177,7 @@ class FormHandler
             header("Location: ?page=reset");
         }
     }
-    
-    public function addCategorie() 
-    {
-        try {
-            $sanatizedPOST = DataProcessor::sanitizeData($_POST);
 
-            if (!DataProcessor::validateFields($sanatizedPOST, ['categorie'])) {
-                Session::set('categorie.error', 'Required fields not found.');
-                header("Location: ?page=categorie.overzicht");
-                exit();
-            }
-
-            $query = "    
-                INSERT INTO categorie (categorie)
-                    VALUES (:categorie);
-            ";
-            $params = [
-                'categorie' => $sanatizedPOST['categorie']
-            ];
-
-            $result = $this->database->query($query, $params);
-            if ($result->rowCount() <= 0) {
-                Session::set('categorie.error', "De categorie kon niet worden toegevoegd.");
-                header("Location: ?page=categorie.home");
-                exit();
-            }
-
-            Session::set('categorie.success', "De categorie is toegevoegd.");
-            header("Location: ?page=categorie.home");
-        } catch (\Exception $e) {
-            Session::set('categorie.error', $e->getMessage());
-            header("Location: ?page=categorie.home");
-        }
-    }
-
-    public function editCategorie() 
-    {
-        try {
-            $sanatizedPOST = DataProcessor::sanitizeData($_POST);
-
-            if (!DataProcessor::validateFields($sanatizedPOST, ['id', 'categorie'])) {
-                Session::set('categorie.error', 'Required fields not found.');
-                header("Location: ?page=categorie.overzicht");
-                exit();
-            }
-
-            $query = "
-                UPDATE categorie
-                    SET categorie = :categorie
-                    WHERE id = :id;
-            ";
-            $params = [
-                'categorie' => $sanatizedPOST['categorie'],
-                'id' => $sanatizedPOST['id']
-            ];
-
-            $result = $this->database->query($query, $params);
-            if ($result->rowCount() <= 0) {
-                Session::set('categorie.error', "De categorie kon niet geupdate worden.");
-                header("Location: ?page=categorie.home");
-                exit();
-            }
-
-            Session::set('categorie.success', "De categorie is gewijzigd.");
-            header("Location: ?page=categorie.view&id=" . $sanatizedPOST['id']);
-        } catch (\Exception $e) {
-            Session::set('categorie.error', $e->getMessage());
-            header("Location: ?page=categorie.view&id=" . $sanatizedPOST['id']);
-        }
     public function addCategorie() 
     {
         try {
