@@ -4,7 +4,4 @@
 *.local.*
 !*.local.example.*
 
-/websrc/images/*
-!/websrc/images/no_image.jpg
-
 !*.gitkeep
