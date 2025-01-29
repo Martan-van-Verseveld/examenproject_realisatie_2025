@@ -41,7 +41,7 @@ class Application
     /**
      * Pages that can be accessed without logging in.
      */
-    private array $ignoreLoggedIn = ['home', 'login'];
+    private array $ignoreLoggedIn;
 
 
 
@@ -117,7 +117,8 @@ class Application
             $this->page = $_GET['page'];
         }
 
-        if (!Session::get('loggedIn') && !in_array($this->page, $this->ignoreLoggedIn)) {
+        $ignoreLoggedIn = Configuration::read('website.ignoreLoggedIn');
+        if (!Session::get('loggedIn') && !in_array($this->page, $ignoreLoggedIn)) {
             header("Location: ?page=login");
         }
 
