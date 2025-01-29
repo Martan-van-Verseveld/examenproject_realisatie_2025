@@ -59,6 +59,36 @@ class Functions
     }
 
     /**
+     * Displays an error message to the user
+     *
+     * @param string|null $message
+     * @return void
+     */
+    public static function displayError(?string $message): void
+    {
+        if (empty($message) || $message === null || $message === '') {
+            return;
+        }
+
+        echo '<span class="error">' . $message . '<p class="close" onclick="this.parentElement.remove();">x</p></span>';
+    }
+
+    /**
+     * Displays a success message to the user
+     *
+     * @param string|null $message
+     * @return void
+     */
+    public static function displaySuccess(?string $message): void
+    {
+        if (empty($message) || $message === null || $message === '') {
+            return;
+        }
+
+        echo '<span class="success">' . $message . '<p class="close" onclick="this.parentElement.remove();">x</p></span>';
+    }
+
+    /**
      * Prints a variable in a readable format for debugging purposes
      *
      * @param mixed $data

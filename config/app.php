@@ -16,5 +16,9 @@ return [
 			'pepper' => "PASSWORD_PEPPER",
 			'algorithm'=> CRYPT_SHA256
 		]
-	]
+    ],
+    
+    'website' => [
+        'ignoreLoggedIn' => ['login', 'home', 'register']
+    ]
 ];

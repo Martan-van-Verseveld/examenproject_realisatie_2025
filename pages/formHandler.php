@@ -22,4 +22,9 @@ switch ($_POST['action']) {
         // Handle logout action
         $formHandler->logout();
         break;
+
+    case 'register':
+        // Handle register action
+        $formHandler->register();
+        break;
 }
