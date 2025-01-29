@@ -41,7 +41,7 @@ class Application
     /**
      * Pages that can be accessed without logging in.
      */
-    private array $ignoreLoggedIn = ['home', 'login', 'admin.index'];
+    private array $ignoreLoggedIn;
 
 
 
