@@ -1,5 +1,7 @@
-# Exmaneproject Realisatie 2025: Kringloop Centrum Duurzaam
-auteurs:
+# Exmaneproject Realisatie 2025
+## Kringloop Centrum Duurzaam
+
+### auteurs:
 - Yorrick de Vries
 - Jelmer de Leeuw
 - Roan van Dam

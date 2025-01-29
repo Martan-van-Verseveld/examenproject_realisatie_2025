@@ -1,0 +1,12 @@
+{
+    "name": "composer/examenproject-realisatie-2025",
+    "description": "Examenproject Realisatie 2025 01/29 - 01/30",
+
+    "type": "project",
+
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}
