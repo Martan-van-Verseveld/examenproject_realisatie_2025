@@ -54,11 +54,11 @@ class FormHandler
             }
 
             $row = $result->fetch(PDO::FETCH_ASSOC);
-            // if (!DataProcessor::checkPassword($sanatizedPOST['password'], $row['wachtwoord'])) {
-            //     // Session::set('error', 'Username and password do not match!');
-            //     header("Location: ?page=login");
-            //     exit();
-            // }
+            if (!DataProcessor::checkPassword($sanatizedPOST['password'], $row['wachtwoord'])) {
+                // Session::set('error', 'Username and password do not match!');
+                header("Location: ?page=login");
+                exit();
+            }
 
             unset($row['wachtwoord']);
             Session::set('user', $row);
@@ -121,6 +121,130 @@ class FormHandler
         } catch (\Exception $e) {
             Session::set('register.error', $e->getMessage());
             header("Location: ?page=home");
+        }
+    }
+
+    public function reset()
+    {
+        try {
+            $sanatizedPOST = DataProcessor::sanitizeData($_POST);
+
+            if (!DataProcessor::validateType([$sanatizedPOST['email'] => FILTER_VALIDATE_EMAIL])) {
+                Session::set('reset.error', 'Invalid email format.');
+                header("Location: ?page=home");
+                exit();
+            }
+
+            $query = "
+                SELECT email, telefoon, wachtwoord FROM gebruiker WHERE email = :email LIMIT 1;
+            ";
+
+            $params = ['email' => $sanatizedPOST['email']];
+
+            $result = $this->database->query($query, $params);
+
+            if ($result->rowCount() <= 0) {
+                Session::set('reset.error', value: 'Email not found.');
+                header("Location: ?page=home");
+                exit();
+            }
+
+            $row = $result->fetch(PDO::FETCH_ASSOC);
+
+            if ($row['email'] !== $sanatizedPOST['email'] && $row['telefoon'] !== $sanatizedPOST['phone']) {
+                Session::set('reset.error', 'Your address and/or phone number do not match our records.');
+                header("Location: ?page=home");
+                exit();
+            }
+
+            $query = "
+                UPDATE gebruiker
+                SET wachtwoord = :wachtwoord
+                WHERE email = :email;
+            ";
+
+            $params = [
+                'wachtwoord' => DataProcessor::hashPassword($sanatizedPOST['password']),
+                'email' => $sanatizedPOST['email']
+            ];
+
+            $this->database->query($query, $params);
+
+            header("Location: ?page=login");
+            exit();
+        } catch (\Exception $e) {
+            Session::set('reset.error', $e->getMessage());
+            header("Location: ?page=reset");
+        }
+    }
+
+    public function addCategorie() 
+    {
+        try {
+            $sanatizedPOST = DataProcessor::sanitizeData($_POST);
+
+            if (!DataProcessor::validateFields($sanatizedPOST, ['categorie'])) {
+                Session::set('categorie.error', 'Required fields not found.');
+                header("Location: ?page=categorie.overzicht");
+                exit();
+            }
+
+            $query = "    
+                INSERT INTO categorie (categorie)
+                    VALUES (:categorie);
+            ";
+            $params = [
+                'categorie' => $sanatizedPOST['categorie']
+            ];
+
+            $result = $this->database->query($query, $params);
+            if ($result->rowCount() <= 0) {
+                Session::set('categorie.error', "De categorie kon niet worden toegevoegd.");
+                header("Location: ?page=categorie.home");
+                exit();
+            }
+
+            Session::set('categorie.success', "De categorie is toegevoegd.");
+            header("Location: ?page=categorie.home");
+        } catch (\Exception $e) {
+            Session::set('categorie.error', $e->getMessage());
+            header("Location: ?page=categorie.home");
+        }
+    }
+
+    public function editCategorie() 
+    {
+        try {
+            $sanatizedPOST = DataProcessor::sanitizeData($_POST);
+
+            if (!DataProcessor::validateFields($sanatizedPOST, ['id', 'categorie'])) {
+                Session::set('categorie.error', 'Required fields not found.');
+                header("Location: ?page=categorie.overzicht");
+                exit();
+            }
+
+            $query = "
+                UPDATE categorie
+                    SET categorie = :categorie
+                    WHERE id = :id;
+            ";
+            $params = [
+                'categorie' => $sanatizedPOST['categorie'],
+                'id' => $sanatizedPOST['id']
+            ];
+
+            $result = $this->database->query($query, $params);
+            if ($result->rowCount() <= 0) {
+                Session::set('categorie.error', "De categorie kon niet geupdate worden.");
+                header("Location: ?page=categorie.home");
+                exit();
+            }
+
+            Session::set('categorie.success', "De categorie is gewijzigd.");
+            header("Location: ?page=categorie.view&id=" . $sanatizedPOST['id']);
+        } catch (\Exception $e) {
+            Session::set('categorie.error', $e->getMessage());
+            header("Location: ?page=categorie.view&id=" . $sanatizedPOST['id']);
         }
     }
 }

@@ -27,4 +27,18 @@ switch ($_POST['action']) {
         // Handle register action
         $formHandler->register();
         break;
+
+    case 'reset':
+        // Handle reset action
+        $formHandler->reset();
+        
+    case 'addCategorie':
+        // Handle register action
+        $formHandler->addCategorie();
+        break;
+
+    case 'editCategorie':
+        // Handle register action
+        $formHandler->editCategorie();
+        break;
 }
