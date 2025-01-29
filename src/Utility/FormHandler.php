@@ -29,4 +29,51 @@ class FormHandler
     {
         $this->database = Database::getInstance();
     }
+
+    public function login()
+    {
+        try {
+            $sanatizedPOST = DataProcessor::sanitizeData($_POST);
+
+            $query = "
+            SELECT *
+                FROM gebruiker
+                WHERE gebruikersnaam = :username 
+                LIMIT 1;
+            ";
+            $params = ['username' => $sanatizedPOST['username']];
+            
+            $result = $this->database->query($query, $params);
+
+            if ($result->rowCount() <= 0) {
+                // Session::set('error', 'Username and password do not match!');
+                header("Location: ?page=login");
+                exit();
+            }
+
+            $row = $result->fetch(PDO::FETCH_ASSOC);
+            // if (!DataProcessor::checkPassword($sanatizedPOST['password'], $row['wachtwoord'])) {
+            //     // Session::set('error', 'Username and password do not match!');
+            //     header("Location: ?page=login");
+            //     exit();
+            // }
+
+            unset($row['wachtwoord']);
+            Session::set('user', $row);
+            Session::set('loggedIn', true);
+            
+            header("Location: ?page=home");
+            exit();
+        } catch (\Exception $e) {
+            // Session::set('error', 'Username and password do not match!');
+            header("Location: ?page=login");
+        }
+    }
+
+    public function logout()
+    {
+        Session::delete('user');
+        Session::set('loggedIn', false);
+        header("Location: ?page=login");
+    }
 }

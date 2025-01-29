@@ -15,6 +15,11 @@ if (!isset($_POST['action'])) {
 switch ($_POST['action']) {
     case 'login':
         // Handle login action
-        // $formHandler->login();
+        $formHandler->login();
+        break;
+
+    case 'logout':
+        // Handle logout action
+        $formHandler->logout();
         break;
 }
