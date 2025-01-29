@@ -48,12 +48,11 @@ class Admin
                     <h1><?=$cat['categorie']?></h1>
                     <p>Beschrijving</p>
                     <section class="divider_25px"></section>
-                    <a href="?page=category&id=<?=$cat['id']?>" class="blue_button">Ga naar <?=$cat["categorie"]?></a>
+                    <a href="?page=category.view&id=<?=$cat['id']?>" class="blue_button">Ga naar <?=$cat["categorie"]?></a>
                 </section>
             </section>
             <?php
         }
-        // Functions::print_p($results);
     }
 
     public function print_medewerkers() {
