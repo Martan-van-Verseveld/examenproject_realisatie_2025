@@ -9,7 +9,7 @@
         <input class="form-input" type="password" name="password" placeholder="Password" max="255" min="255">
         <input class="form-button" type="submit" name="login" value="Login">
         <a href="?page=register">
-            <input class="form-button" type="submit" name="register" value="Register">
+            <button class="form-button" type="button">Register</button>
         </a>
         <input class="form-button" type="submit" name="reset" value="Reset">
 
