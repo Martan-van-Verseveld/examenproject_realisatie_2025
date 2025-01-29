@@ -1,3 +1,5 @@
+@primary-color: blue;
+
 * {  
   margin: 0;
   padding: 0;
@@ -7,6 +9,48 @@
   font-family: 'Roboto', sans-serif;
   border: none;
   outline: none;
+}
+
+header {
+    width: 100%;
+
+    background: @primary-color;
+
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+
+    border-bottom: 1px solid white;
+
+    
+    &, a {
+        color: white;
+    }
+
+    li {
+        margin: 0 10px;
+    }
+
+    .header-title { 
+        text-align: left; 
+        margin-left: 16px;
+        font-size: 2rem;
+        font-weight: 600;
+        width: fit-content;
+        margin-right: 20px;
+    }
+    .header-page-title { text-align: center; }
+    .nav { 
+        text-align: left; 
+        margin-right: 16px;
+
+        display: flex;
+        flex-direction: row;
+    }
+}
+
+.main_content {
+    margin: 0 70px;
 }
 
 main#login {
@@ -80,6 +124,43 @@ main#login {
     }
 
     .form-button:hover{
-        background-color: #8f8f8f ;
+        background-color: #8f8f8f;
+    }
+}
+
+.divider_25px {
+    height: 25px;
+}
+
+.divider_50px {
+    height: 50px;
+}
+
+.category_grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 50px;
+    column-gap: 25px;
+    .category_container {
+        border: 1px solid black;
+        border-radius: 10px;
+        height: 150px;
+    }
+    
+    .blue_button {
+        background-color: blue;
+        border-radius: 10px;
+        text-decoration: none;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60%;
+        height: 45px;
+    }
+    
+    .offset_from_border {
+        margin-left: 20px;
+        margin-top: 15px;
     }
 }
