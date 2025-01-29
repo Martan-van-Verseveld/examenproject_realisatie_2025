@@ -33,6 +33,61 @@ class Functions
     }
 
     /**
+     * Draws a table with the given headers and rows
+     *
+     * @param array $headers
+     * @param array $rows
+     * @param string $direction
+     * @return void
+     */
+    public static function drawTable($headers, $rows, $direction='horizontal'): void
+    {
+        if ($direction === 'horizontal') {
+            echo "<table><thead><tr>";
+            foreach ($headers as $header) {
+                echo "<th>". str_replace('_', ' ', ucfirst($header)) ."</th>";
+            }
+            echo "</tr></thead><tbody>";
+            
+            if (empty($rows)) {
+                echo "<tr><td colspan=\"" . count($headers) . "\">No data available</td></tr>";
+            } else {
+                foreach ($rows as $row) {    
+                    echo "<tr>";
+                    foreach ($headers as $header) {
+                        echo "<td>". $row[$header] ."</td>";
+                    }
+                    echo "</tr>";
+                }
+            }
+            
+            echo "</tbody></table>";
+        } else if ($direction === 'vertical') {
+            echo "<table><tbody>";
+            
+            if (empty($rows)) {
+                foreach ($headers as $header) {
+                    echo "<tr>";
+                    echo "<th>". str_replace('_', ' ', ucfirst($header)) ."</th>";
+                    echo "<td>No data available</td>";
+                    echo "</tr>";
+                }
+            } else {
+                foreach ($rows as $row) {
+                    foreach ($headers as $header) {
+                        echo "<tr>";
+                        echo "<th>". str_replace('_', ' ', ucfirst($header)) ."</th>";
+                        echo "<td>". $row[$header] ."</td>";
+                        echo "</tr>";
+                    }
+                }
+            }
+            
+            echo "</tbody></table>";
+        }
+    }
+
+    /**
      * Checks if the user has the given permissions
      *
      * @param array $permissions

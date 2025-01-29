@@ -1,4 +1,5 @@
 @primary-color: blue;
+@secondary-color: #fff;
 
 * {  
   margin: 0;
@@ -162,5 +163,28 @@ main#login {
     .offset_from_border {
         margin-left: 20px;
         margin-top: 15px;
+    }
+}
+
+table {
+    border-collapse: collapse;
+    margin: 100px auto;
+
+    width: 70%;
+    min-width: auto;
+
+    tr {
+        border-bottom: 1px solid @primary-color;
+        height: 2rem;
+    }
+
+    th {
+        background: @secondary-color;
+        color: #000;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 8px;
     }
 }
