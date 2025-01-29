@@ -36,4 +36,9 @@ switch ($_POST['action']) {
         // Handle register action
         $formHandler->addCategorie();
         break;
+
+    case 'editCategorie':
+        // Handle register action
+        $formHandler->editCategorie();
+        break;
 }
