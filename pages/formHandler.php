@@ -31,5 +31,9 @@ switch ($_POST['action']) {
     case 'reset':
         // Handle reset action
         $formHandler->reset();
+        
+    case 'addCategorie':
+        // Handle register action
+        $formHandler->addCategorie();
         break;
 }
