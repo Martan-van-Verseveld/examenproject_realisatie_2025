@@ -155,4 +155,13 @@ class Functions
         print_r($data);
         echo '</pre>';
     }
+
+    public static function welcome(): void
+    {
+        if (Session::get('loggedIn')) {
+            echo "<h1 class='welcome'>Welkom: " . Session::get('user')['gebruikersnaam'] . "</h1>";
+        }else{
+            echo "<h1 class='welcome'>Welkom</h1>";
+        }
+    }
 }

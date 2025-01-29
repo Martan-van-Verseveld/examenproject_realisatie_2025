@@ -18,5 +18,5 @@
             <button class="form-button" type="button">Register</button>
         </a>
         <input class="form-button" type="button" name="reset" value="Reset">
-    </form>
+        </form>
 </div>
