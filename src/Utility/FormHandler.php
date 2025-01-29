@@ -54,11 +54,11 @@ class FormHandler
             }
 
             $row = $result->fetch(PDO::FETCH_ASSOC);
-            // if (!DataProcessor::checkPassword($sanatizedPOST['password'], $row['wachtwoord'])) {
-            //     // Session::set('error', 'Username and password do not match!');
-            //     header("Location: ?page=login");
-            //     exit();
-            // }
+            if (!DataProcessor::checkPassword($sanatizedPOST['password'], $row['wachtwoord'])) {
+                // Session::set('error', 'Username and password do not match!');
+                header("Location: ?page=login");
+                exit();
+            }
 
             unset($row['wachtwoord']);
             Session::set('user', $row);
