@@ -5,8 +5,8 @@
         <li><a href="?page=home">Home</a></li>
         <li>Ritten</a></li>
         <li><a href="?page=voorraad">Voorraad</a></li>
-    <?php if (Functions::checkPermissions(['admin', 'beheerder'])): ?>
-        <li><a href="?page=admin.beheer">Beheer</a></li>
+    <?php if (Functions::checkPermissions(['admin'])): ?>
+        <li><a href="?page=medewerkers.beheer">Beheer</a></li>
         <li>Admin</li>
     <?php endif; ?>
     <?php if ($_SESSION['loggedIn'] === true): ?>
