@@ -2,6 +2,13 @@
     <h1 class="form-title">Registeren</h1>
     <form action="?page=formHandler" method="post" enctype="multipart/form-data">
         <input type="hidden" name="action" value="register">
+        <div class="form-back">
+            <h1>
+                <a href="?page=login">
+                    <i class="bi bi-arrow-left"></i>
+                </a>
+            </h1>
+        </div>
         <label class="form-label" for="username">Gebruikersnaam:</label>
         <input class="form-input" type="text" name="username" placeholder="Username">
         <label class="form-label" for="firstname">Voornaam:</label>
