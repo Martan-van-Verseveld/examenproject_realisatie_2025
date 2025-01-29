@@ -31,12 +31,12 @@ class Application
     /**
      * Pages that do not require specific elements to be included.
      */
-    private array $ignoreElements = ['logout', 'login'];
+    private array $ignoreElements;
 
     /**
      * Pages that do not require specific head elements to be included.
      */
-    private array $ignoreHead = ['logout'];
+    private array $ignoreHead;
 
     /**
      * Pages that can be accessed without logging in.
@@ -80,11 +80,13 @@ class Application
         }
 
         if ($this->page !== 'formHandler') {
-            if (!in_array($this->page, $this->ignoreHead)) {
+            $ignoreElements = Configuration::read('website.ignoreElements');
+            $ignoreHead = Configuration::read('website.ignoreHead');
+            if (!in_array($this->page, $ignoreHead)) {
                 require_once dirname(__DIR__) . '/elements/head.php';
             }
 
-            if (!in_array($this->page, $this->ignoreElements)) {
+            if (!in_array($this->page, $ignoreElements)) {
                 require_once dirname(__DIR__) . '/elements/header.php';
                 echo "<script>document.body.classList.add('has-header')</script>";
             }
@@ -93,7 +95,7 @@ class Application
             require_once dirname(__DIR__) . '/pages/' . $this->page . '.php';
             echo "</main>";
 
-            if (!in_array($this->page, $this->ignoreElements)) {
+            if (!in_array($this->page, $ignoreElements)) {
                 require_once dirname(__DIR__) . '/elements/footer.php';
             }
         } else {
