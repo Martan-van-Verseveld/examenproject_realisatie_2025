@@ -27,4 +27,9 @@ switch ($_POST['action']) {
         // Handle register action
         $formHandler->register();
         break;
+
+    case 'reset':
+        // Handle reset action
+        $formHandler->reset();
+        break;
 }

@@ -123,4 +123,58 @@ class FormHandler
             header("Location: ?page=home");
         }
     }
+
+    public function reset()
+    {
+        try {
+            $sanatizedPOST = DataProcessor::sanitizeData($_POST);
+
+            if (!DataProcessor::validateType([$sanatizedPOST['email'] => FILTER_VALIDATE_EMAIL])) {
+                Session::set('reset.error', 'Invalid email format.');
+                header("Location: ?page=home");
+                exit();
+            }
+
+            $query = "
+                SELECT email, telefoon, wachtwoord FROM gebruiker WHERE email = :email LIMIT 1;
+            ";
+
+            $params = ['email' => $sanatizedPOST['email']];
+
+            $result = $this->database->query($query, $params);
+
+            if ($result->rowCount() <= 0) {
+                Session::set('reset.error', value: 'Email not found.');
+                header("Location: ?page=home");
+                exit();
+            }
+
+            $row = $result->fetch(PDO::FETCH_ASSOC);
+
+            if ($row['email'] !== $sanatizedPOST['email'] && $row['telefoon'] !== $sanatizedPOST['phone']) {
+                Session::set('reset.error', 'Your address and/or phone number do not match our records.');
+                header("Location: ?page=home");
+                exit();
+            }
+
+            $query = "
+                UPDATE gebruiker
+                SET wachtwoord = :wachtwoord
+                WHERE email = :email;
+            ";
+
+            $params = [
+                'wachtwoord' => DataProcessor::hashPassword($sanatizedPOST['password']),
+                'email' => $sanatizedPOST['email']
+            ];
+
+            $this->database->query($query, $params);
+
+            header("Location: ?page=login");
+            exit();
+        } catch (\Exception $e) {
+            Session::set('reset.error', $e->getMessage());
+            header("Location: ?page=reset");
+        }
+    }
 }
