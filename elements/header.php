@@ -16,7 +16,7 @@
         <li><a href="?page=voorraad">Voorraad</a></li>
     <?php endif; ?>
     <?php if (Functions::checkPermissions(['admin'])): ?>
-        <li><a href="?page=medewerkers.beheer">Beheer</a></li>
+        <li><a href="?page=medewerker.view">Beheer</a></li>
         <li>
         <div class="dropdown">
             <button class="dropdown_click">Admin<i class="fa fa-solid fa-caret-down"></i></button>
