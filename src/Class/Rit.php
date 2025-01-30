@@ -7,9 +7,8 @@ use App\Utility\Database;
 use App\Utility\Functions;
 
 
-
 /**
- * Rit Class
+ * FormHandler
  * 
  * @author Roan van Dam
  */
@@ -32,52 +31,31 @@ class Rit
     public function print_ritten() {
         $query = 
         "
-        SELECT * FROM planning
+        SELECT planning.*,
+        artikel.naam AS artikel_naam,
+        gebruiker.*
+        FROM planning
+        INNER JOIN artikel ON planning.artikel_id = artikel.id
+        INNER JOIN gebruiker ON planning.gebruiker_id = gebruiker.id
+        WHERE planning.ophalen_of_bezorgen = 'bezorgen'
         LIMIT 100
         ";
-
         $results = $this->database->query($query);
         $results = $results->fetchAll(PDO::FETCH_ASSOC);
 
-        foreach ($results as &$result) {
-            $query =
-            "
-            SELECT naam FROM artikel 
-            WHERE id = :id
+        $headers = [
+            'id', 'kenteken', 'artikel_id',
+            'artikel_naam', 'voornaam',
+            'achternaam', 'adres', 'plaats', 'acties'
+        ];
+        $results = array_map(function($results) {
+            $results['acties'] = "
+                <a href='?page=rit.edit&id=" . $results['id'] . "'>Edit</a>
+                <a href='?page=rit.delete&id=" . $results['id'] . "'>Delete</a>
             ";
-            $params = ['id' => $result['artikel_id']];
-            $result_name = $this->database->query($query, $params);
-            $result_name = $result_name->fetch(PDO::FETCH_ASSOC);
-            $result['artikel_id'] = implode(", ", $result_name);
-        }
-
-        foreach ($results as &$result) {
-            $query =
-            "
-            SELECT gebruikersnaam FROM gebruiker 
-            WHERE id = :id
-            ";
-            $params = ['id' => $result['gebruiker_id']];
-            $result_name = $this->database->query($query, $params);
-            $result_name = $result_name->fetch(PDO::FETCH_ASSOC);
-            $result['gebruiker_id'] = implode(", ", $result_name);
-        }
-
-
-        Functions::print_p($results);
-        // $headers = [
-        //     'id', 'naam', 'omschrijving',
-        //     'merk', 'kleur', 'afmeting',
-        //     'aantal', 'EAN_number', 'acties'
-        // ];
-        // $results = array_map(function($results) {
-        //     $results['acties'] = "
-        //         <a href='?page=product.view&id=" . $results['id'] . "'>View</a>
-        //         <a href='?page=product.edit&id=" . $results['id'] . "'>Edit</a>
-        //         <a href='?page=product.delete&id=" . $results['id'] . "'>Delete</a>
-        //     ";
-        //     return $results;
-        // }, $results);
-        // Functions::drawTable($headers, $results);
+            return $results;
+        }, $results);
+        Functions::drawTable($headers, $results);
     }
 }
+
