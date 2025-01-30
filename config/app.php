@@ -19,8 +19,8 @@ return [
     ],
     
     'website' => [
-        'ignoreLoggedIn' => ['login', 'home', 'register'],
-        'ignoreElements' => ['login', 'home', 'register'],
-        'ignoreHead' => ['logout'],
+        'ignoreLoggedIn' => [],
+        'ignoreElements' => [],
+        'ignoreHead' => [],
     ]
 ];
