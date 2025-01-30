@@ -31,7 +31,7 @@ class Admin
 
     public function print_admin_overview() 
     {
-        $types = ['medewerker', 'klant', 'product', 'categorie'];
+        $types = ['medewerker', 'klant', 'product', 'categorie', 'voorraad'];
         foreach ($types as $type) {
             ?>
             <section class="category_container">

@@ -326,8 +326,8 @@ class FormHandler
             $sanitizedPOST = DataProcessor::sanitizeData($_POST);
 
             if (!DataProcessor::validateFields($sanitizedPOST, ['categorie_id', 'naam', 'omschrijving', 'merk', 'kleur', 'afmeting', 'aantal', 'prijs_ex_btw', 'ean_number'])) {
-                Session::set('product.error', 'Required fields not found.');
-                header("Location: ?page=product.add");
+                Session::set('voorraad.error', 'Required fields not found.');
+                header("Location: ?page=voorraad.add");
                 exit();
             }
 
@@ -349,16 +349,16 @@ class FormHandler
 
             $result = $this->database->query($query, $params);
             if ($result->rowCount() <= 0) {
-                Session::set('product.error', "Het product kon niet worden toegevoegd.");
-                header("Location: ?page=product.add");
+                Session::set('voorraad.error', "De voorraad kon niet worden toegevoegd.");
+                header("Location: ?page=voorraad.add");
                 exit();
             }
 
-            Session::set('product.success', "Het product is toegevoegd.");
-            header("Location: ?page=product.overzicht");
+            Session::set('voorraad.success', "De voorraad is toegevoegd.");
+            header("Location: ?page=voorraad.overzicht");
         } catch (\Exception $e) {
-            Session::set('product.error', $e->getMessage());
-            header("Location: ?page=product.add");
+            Session::set('voorraad.error', $e->getMessage());
+            header("Location: ?page=voorraad.add");
         }
     }
 
@@ -602,4 +602,112 @@ class FormHandler
         }
     }
 
+    public function addVoorraad() 
+    {
+        try {
+            $sanitizedPOST = DataProcessor::sanitizeData($_POST);
+
+            if (!DataProcessor::validateFields($sanitizedPOST, ['artikel_id', 'locatie', 'status_id', 'ingeboekt_op'])) {
+                Session::set('voorraad.error', 'Required fields not found.');
+                header("Location: ?page=voorraad.add");
+                exit();
+            }
+
+            $query = "    
+                INSERT INTO voorraad (artikel_id, aantal, locatie, status_id, ingeboekt_op)
+                    VALUES (:artikel_id, (SELECT aantal FROM artikel WHERE id = :artikel_id LIMIT 1), :locatie, :status_id, :ingeboekt_op);
+            ";
+            $params = [
+                'artikel_id' => $sanitizedPOST['artikel_id'],
+                'locatie' => $sanitizedPOST['locatie'],
+                'status_id' => $sanitizedPOST['status_id'],
+                'ingeboekt_op' => $sanitizedPOST['ingeboekt_op']
+            ];
+
+            $result = $this->database->query($query, $params);
+            if ($result->rowCount() <= 0) {
+                Session::set('voorraad.error', "De voorraad kon niet worden toegevoegd.");
+                header("Location: ?page=voorraad.add");
+                exit();
+            }
+
+            Session::set('voorraad.success', "De voorraad is toegevoegd.");
+            header("Location: ?page=voorraad.overzicht");
+        } catch (\Exception $e) {
+            Session::set('voorraad.error', $e->getMessage());
+            header("Location: ?page=voorraad.add");
+        }
+    }
+
+    public function editVoorraad() 
+    {
+        try {
+            $sanitizedPOST = DataProcessor::sanitizeData($_POST);
+
+            if (!DataProcessor::validateFields($sanitizedPOST, ['id', 'artikel_id', 'locatie', 'status_id', 'ingeboekt_op'])) {
+                Session::set('voorraad.error', 'Required fields not found.');
+                header("Location: ?page=voorraad.edit&id=" . $sanitizedPOST['id']);
+                exit();
+            }
+
+            $query = "    
+                UPDATE voorraad SET artikel_id = :artikel_id, locatie = :locatie, status_id = :status_id, ingeboekt_op = :ingeboekt_op
+                    WHERE id = :id;
+            ";
+            $params = [
+                'id' => $sanitizedPOST['id'],
+                'artikel_id' => $sanitizedPOST['artikel_id'],
+                'locatie' => $sanitizedPOST['locatie'],
+                'status_id' => $sanitizedPOST['status_id'],
+                'ingeboekt_op' => $sanitizedPOST['ingeboekt_op']
+            ];
+
+            $result = $this->database->query($query, $params);
+            if ($result->rowCount() <= 0) {
+                Session::set('voorraad.error', "De voorraad kon niet worden geupdate.");
+                header("Location: ?page=voorraad.edit&id=" . $sanitizedPOST['id']);
+                exit();
+            }
+
+            Session::set('voorraad.success', "De voorraad is geupdate.");
+            header("Location: ?page=voorraad.overzicht");
+        } catch (\Exception $e) {
+            Session::set('voorraad.error', $e->getMessage());
+            header("Location: ?page=voorraad.edit&id=" . $sanitizedPOST['id']);
+        }
+    }
+
+    public function deleteVoorraad() 
+    {
+        try {
+            $sanitizedPOST = DataProcessor::sanitizeData($_POST);
+
+            if (!DataProcessor::validateFields($sanitizedPOST, ['id'])) {
+                Session::set('voorraad.error', 'Required fields not found.');
+                header("Location: ?page=voorraad.overzicht");
+                exit();
+            }
+
+            $query = "    
+                DELETE FROM voorraad
+                    WHERE id = :id;
+            ";
+            $params = [
+                'id' => $sanitizedPOST['id']
+            ];
+
+            $result = $this->database->query($query, $params);
+            if ($result->rowCount() <= 0) {
+                Session::set('voorraad.error', "De voorraad kon niet worden verwijderd.");
+                header("Location: ?page=voorraad.overzicht");
+                exit();
+            }
+
+            Session::set('voorraad.success', "De voorraad is verwijderd.");
+            header("Location: ?page=voorraad.overzicht");
+        } catch (\Exception $e) {
+            Session::set('voorraad.error', $e->getMessage());
+            header("Location: ?page=voorraad.overzicht");
+        }
+    }
 }

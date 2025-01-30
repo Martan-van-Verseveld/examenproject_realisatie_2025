@@ -97,6 +97,25 @@ switch ($_POST['action']) {
         Session::get('loggedIn') && 
             $formHandler->editAccount();
         break;
+    
+
+    case 'addVoorraad':
+        // Handle add-mroduct action
+        Functions::checkPermissions(['admin']) && 
+            $formHandler->addVoorraad();
+        break;
+
+    case 'editVoorraad':
+        // Handle delete-medewerker action
+        Functions::checkPermissions(['admin']) && 
+            $formHandler->editVoorraad();
+        break;
+
+    case 'deleteVoorraad':
+        // Handle delete-medewerker action
+        Functions::checkPermissions(['admin']) && 
+            $formHandler->deleteVoorraad();
+        break;
 
 
     default:
