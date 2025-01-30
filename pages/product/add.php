@@ -6,7 +6,6 @@ use App\Utility\Session;
 
 
 $database = Database::getInstance();
-
 $query_categories = $database->query(query: "
 SELECT * 
     FROM categorie;
