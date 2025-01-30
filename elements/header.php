@@ -1,9 +1,9 @@
-<?php use App\Utility\Functions; ?>
+<?php use App\Utility\Functions; use App\Utility\Session; ?>
 <header>
     <p class="header-title">Kringloop centrum</p>
     <ul class="nav">
         <li><a href="?page=home">Home</a></li>
-    <?php if (!Functions::checkPermissions(['klant'])): ?>
+    <?php if (Session::get('loggedIn') && !Functions::checkPermissions(['klant'])): ?>
         <li>Ritten</a></li>
         <li><a href="?page=voorraad">Voorraad</a></li>
     <?php endif; ?>
