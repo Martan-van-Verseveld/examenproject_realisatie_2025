@@ -7,12 +7,13 @@ use App\Utility\Database;
 use App\Utility\Functions;
 
 
+
 /**
  * FormHandler
  * 
  * @author Roan van Dam
  */
-class Rit
+class Category
 {
     
     /**
@@ -28,34 +29,29 @@ class Rit
         $this->database = Database::getInstance();
     }
 
-    public function print_ritten() {
+    public function print_products() {
         $query = 
         "
-        SELECT planning.*,
-        artikel.naam AS artikel_naam,
-        gebruiker.*
-        FROM planning
-        INNER JOIN artikel ON planning.artikel_id = artikel.id
-        INNER JOIN gebruiker ON planning.gebruiker_id = gebruiker.id
-        WHERE planning.ophalen_of_bezorgen = 'bezorgen'
+        SELECT * FROM artikel WHERE categorie_id = :categorie_id
         LIMIT 100
         ";
-        $results = $this->database->query($query);
-        $results = $results->fetchAll(PDO::FETCH_ASSOC);
 
+        $params = ['categorie_id' => $_GET['id']];
+        $results = $this->database->query($query, $params);
+        $results = $results->fetchAll(PDO::FETCH_ASSOC);
         $headers = [
-            'id', 'kenteken', 'artikel_id',
-            'artikel_naam', 'voornaam',
-            'achternaam', 'adres', 'plaats', 'acties'
+            'id', 'naam', 'omschrijving',
+            'merk', 'kleur', 'afmeting',
+            'aantal', 'EAN_number', 'acties'
         ];
         $results = array_map(function($results) {
             $results['acties'] = "
-                <a href='?page=rit.edit&id=" . $results['id'] . "'>Edit</a>
-                <a href='?page=rit.delete&id=" . $results['id'] . "'>Delete</a>
+                <a href='?page=product.view&id=" . $results['id'] . "'>View</a>
+                <a href='?page=product.edit&id=" . $results['id'] . "'>Edit</a>
+                <a href='?page=product.delete&id=" . $results['id'] . "'>Delete</a>
             ";
             return $results;
         }, $results);
         Functions::drawTable($headers, $results);
     }
 }
-
