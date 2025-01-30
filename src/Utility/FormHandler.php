@@ -97,6 +97,27 @@ class FormHandler
             }
 
             $query = "
+                SELECT COUNT(*) AS count
+                FROM gebruiker
+                WHERE (gebruikersnaam = :gebruikersnaam OR email = :email OR telefoon = :telefoon);
+            ";
+
+            $params = [
+                'gebruikersnaam' => $sanitizedPOST['username'],
+                'email' => $sanitizedPOST['email'],
+                'telefoon' => $sanitizedPOST['phone']
+            ];
+
+            $result = $this->database->query($query, $params);
+            $row = $result->fetch(PDO::FETCH_ASSOC);
+
+            if ($row['count'] > 0) {
+                Session::set('register.error', 'Gebruikersnaam, email en telefoonnummer moeten uniek zijn.');
+                header("Location: ?page=register");
+                exit();
+            }
+
+            $query = "
                 INSERT INTO gebruiker (gebruikersnaam, voornaam, achternaam, adres, plaats, telefoon, email, wachtwoord, rollen, is_geverifieerd)
                 VALUES (:gebruikersnaam, :voornaam, :achternaam, :adres, :plaats, :telefoon, :email, :wachtwoord, :rollen, :is_geverifieerd);
             ";
