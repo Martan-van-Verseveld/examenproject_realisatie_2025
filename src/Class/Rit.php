@@ -88,4 +88,3 @@ class Rit
         Functions::drawTable($headers, $results);
     }
 }
-

@@ -3,8 +3,8 @@
 use App\Utility\Functions;
 use App\Utility\Session;
 
-Functions::displayError(Session::get(Session::get('page') . '.error'));
-Session::delete(Session::get('page') . '.error');
+Functions::displayError(Session::get('register.error'));
+Session::delete('register.error');
 
 ?>
 
@@ -16,7 +16,7 @@ Session::delete(Session::get('page') . '.error');
         <div class="form-back">
             <h1>
                 <a href="?page=login">
-                    <i class="bi bi-arrow-left"></i>
+                <i class="fa-solid fa-arrow-left"></i>
                 </a>
             </h1>
         </div>
