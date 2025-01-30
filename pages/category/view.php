@@ -1,16 +1,16 @@
 <?php declare(strict_types=1);
 
 use PDO;
-use App\class\Rit;
+use App\class\Category;
 use App\Utility\Functions;
-$rit = new Rit();
+$category = new Category();
 ?>
 
 <html>
     <section class="divider_50px"></section>
     <section class="main_content">
         <section>
-            <?php $rit->print_ritten();?>
+            <?php $category->print_products();?>
         </section>
     </section>
 </html>

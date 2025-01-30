@@ -16,7 +16,7 @@ Session::delete('login.error');
         <div class="form-back">
             <h1>
                 <a href="?page=home">
-                    <i class="bi bi-arrow-left"></i>
+                <i class="fa-solid fa-arrow-left"></i>
                 </a>
             </h1>
         </div>
