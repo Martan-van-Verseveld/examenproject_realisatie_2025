@@ -568,4 +568,5 @@ class FormHandler
             header("Location: ?page=account.home");
         }
     }
+
 }
