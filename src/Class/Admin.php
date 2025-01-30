@@ -9,9 +9,9 @@ use App\Utility\Functions;
 
 
 /**
- * FormHandler
+ * Admin Class
  * 
- * @author Roan van Dam
+ * @author Roan van Dam, Martan van Verseveld
  */
 class Admin
 {
@@ -27,6 +27,23 @@ class Admin
     public function __construct()
     {
         $this->database = Database::getInstance();
+    }
+
+    public function print_admin_overview() 
+    {
+        $types = ['medewerker', 'klant', 'product', 'categorie'];
+        foreach ($types as $type) {
+            ?>
+            <section class="category_container">
+                <section class="offset_from_border">
+                    <h1><?=ucfirst($type)?></h1>
+                    <p>Overzicht van alle <?=strtolower($type)?></p>
+                    <section class="divider_25px"></section>
+                    <a href="?page=<?=$type?>/overzicht" class="blue_button">Ga naar <?=ucfirst($type)?> overzicht</a>
+                </section>
+            </section>
+            <?php
+        }
     }
 
     public function print_category() 
@@ -48,12 +65,11 @@ class Admin
                     <h1><?=$cat['categorie']?></h1>
                     <p>Beschrijving</p>
                     <section class="divider_25px"></section>
-                    <a href="?page=category&id=<?=$cat['id']?>" class="blue_button">Ga naar <?=$cat["categorie"]?></a>
+                    <a href="?page=category.view&id=<?=$cat['id']?>" class="blue_button">Ga naar <?=$cat["categorie"]?></a>
                 </section>
             </section>
             <?php
         }
-        // Functions::print_p($results);
     }
 
     public function print_medewerkers() {
