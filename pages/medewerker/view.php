@@ -7,8 +7,8 @@ use App\Utility\Functions;
 
 $medewerker = new Medewerker();
 
-if (!isset($_GET['id']) || $_GET['id'] != '') {
-    Functions::jsRedirect(url: '?page=medewerker.overzicht');
+if (!isset($_GET['id']) || $_GET['id'] == '') {
+    Functions::jsRedirect(url: '?page=klant.overzicht');
 }
 
 ?>

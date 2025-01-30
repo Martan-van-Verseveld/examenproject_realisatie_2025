@@ -22,7 +22,7 @@
             <button class="dropdown_click">Admin<i class="fa fa-solid fa-caret-down"></i></button>
                 <div class="dropdown-content">
                     <a href="?page=rit.view">Ritten planning</a>
-                    <a href="?page=voorraad.view">Voorraadbeheer <i class="fa fa-solid fa-angles-right"></i></a>
+                    <a href="?page=voorraad.overzicht">Voorraadbeheer <i class="fa fa-solid fa-angles-right"></i></a>
                     <a href="?page=admin.home">home</i></a>
                     <a href="?page=klant.view">Klanten</a>
                 </div>

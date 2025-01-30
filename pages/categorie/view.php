@@ -7,7 +7,7 @@ use App\Utility\Functions;
 
 $categorie = new Categorie();
 
-if (!isset($_GET['id']) || $_GET['id'] != '') {
+if (!isset($_GET['id']) || $_GET['id'] == '') {
     Functions::jsRedirect(url: '?page=categorie.overzicht');
 }
 

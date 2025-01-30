@@ -710,4 +710,82 @@ class FormHandler
             header("Location: ?page=voorraad.overzicht");
         }
     }
+
+    public function editKlant() 
+    {
+        try {
+            $sanitizedPOST = DataProcessor::sanitizeData($_POST);
+
+            if (!DataProcessor::validateFields($sanitizedPOST, ['id', 'gebruikersnaam', 'voornaam', 'achternaam', 'adres', 'plaats', 'telefoon', 'email', 'rollen', 'is_geverifieerd'])) {
+                Session::set('klant.error', 'Required fields not found.');
+                header("Location: ?page=klant.overzicht");
+                exit();
+            }
+
+            $query = "    
+                UPDATE gebruiker
+                    SET gebruikersnaam = :gebruikersnaam, voornaam = :voornaam, achternaam = :achternaam, adres = :adres, plaats = :plaats, telefoon = :telefoon, email = :email, rollen = :rollen, is_geverifieerd = :is_geverifieerd
+                    WHERE id = :id AND rollen = 'klant';
+            ";
+            $params = [
+                'gebruikersnaam' => $sanitizedPOST['gebruikersnaam'],
+                'voornaam' => $sanitizedPOST['voornaam'],
+                'achternaam' => $sanitizedPOST['achternaam'],
+                'adres' => $sanitizedPOST['adres'],
+                'plaats' => $sanitizedPOST['plaats'],
+                'telefoon' => $sanitizedPOST['telefoon'],
+                'email' => $sanitizedPOST['email'],
+                'rollen' => $sanitizedPOST['rollen'],
+                'is_geverifieerd' => $sanitizedPOST['is_geverifieerd'],
+                'id' => $sanitizedPOST['id']
+            ];
+
+            $result = $this->database->query($query, $params);
+            if ($result->rowCount() <= 0) {
+                Session::set('klant.error', "De klant kon niet worden geupdate.");
+                header("Location: ?page=klant.view&id=" . $sanitizedPOST['id']);
+                exit();
+            }
+
+            Session::set('klant.success', "De klant is geupdate.");
+            header("Location: ?page=klant.view&id=" . $sanitizedPOST['id']);
+        } catch (\Exception $e) {
+            Session::set('klant.error', $e->getMessage());
+            header("Location: ?page=klant.view&id=" . $sanitizedPOST['id']);
+        }
+    }
+
+    public function deleteKlant() 
+    {
+        try {
+            $sanitizedPOST = DataProcessor::sanitizeData($_POST);
+
+            if (!DataProcessor::validateFields($sanitizedPOST, ['id'])) {
+                Session::set('klant.error', 'Required fields not found.');
+                header("Location: ?page=klant.overzicht");
+                exit();
+            }
+
+            $query = "
+                DELETE FROM gebruiker
+                    WHERE id = :id AND rollen = 'klant';
+            ";
+            $params = [
+                'id' => $sanitizedPOST['id']
+            ];
+
+            $result = $this->database->query($query, $params);
+            if ($result->rowCount() <= 0) {
+                Session::set('klant.error', "De klant kon niet worden verwijderd.");
+                header("Location: ?page=klant.overzicht");
+                exit();
+            }
+
+            Session::set('klant.success', "De klant is verwijderd.");
+            header("Location: ?page=klant.overzicht");
+        } catch (\Exception $e) {
+            Session::set('klant.error', $e->getMessage());
+            header("Location: ?page=klant.overzicht");
+        }
+    }
 }

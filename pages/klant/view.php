@@ -7,7 +7,7 @@ use App\Utility\Functions;
 
 $klant = new Klant();
 
-if (!isset($_GET['id']) || $_GET['id'] != '') {
+if (!isset($_GET['id']) || $_GET['id'] == '') {
     Functions::jsRedirect(url: '?page=klant.overzicht');
 }
 

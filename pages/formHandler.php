@@ -116,6 +116,19 @@ switch ($_POST['action']) {
         Functions::checkPermissions(['admin']) && 
             $formHandler->deleteVoorraad();
         break;
+        
+
+    case 'editKlant':
+        // Handle edit-medewerker action
+        Functions::checkPermissions(['admin']) && 
+            $formHandler->editKlant();
+        break;
+
+    case 'deleteKlant':
+        // Handle delete-medewerker action
+        Functions::checkPermissions(['admin']) && 
+            $formHandler->deleteKlant();
+        break;
 
 
     default:
