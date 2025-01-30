@@ -9,7 +9,7 @@ $admin = new Admin();
     <section class="divider_50px"></section>
     <section class="main_content">
         <section class="category_grid">
-            <?php $admin->print_category(); ?>
+            <?php $admin->print_admin_overview(); ?>
         </section>
     </section>
 </html>

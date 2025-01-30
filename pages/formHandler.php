@@ -2,6 +2,7 @@
 
 use App\Utility\FormHandler;
 use App\Utility\Functions;
+use App\Utility\Session;
 
 // Instantiate the FormHandler class
 $formHandler = new FormHandler();
@@ -31,14 +32,75 @@ switch ($_POST['action']) {
     case 'reset':
         // Handle reset action
         $formHandler->reset();
+        break;
         
+
     case 'addCategorie':
-        // Handle register action
-        $formHandler->addCategorie();
+        // Handle add-categorie action
+        Functions::checkPermissions(['admin']) && 
+            $formHandler->addCategorie();
         break;
 
     case 'editCategorie':
-        // Handle register action
-        $formHandler->editCategorie();
+        // Handle edit-categorie action
+        Functions::checkPermissions(['admin']) && 
+            $formHandler->editCategorie();
+        break;
+
+    case 'deleteCategorie':
+        // Handle delete-categorie action
+        Functions::checkPermissions(['admin']) && 
+            $formHandler->deleteCategorie();
+        break;
+    
+
+    case 'addProduct':
+        // Handle add-product action
+        Functions::checkPermissions(['admin']) && 
+            $formHandler->addProduct();
+        break;
+
+    case 'editProduct':
+        // Handle edit-product action
+        Functions::checkPermissions(['admin']) && 
+            $formHandler->editProduct();
+        break;
+
+    case 'deleteProduct':
+        // Handle delete-product action
+        Functions::checkPermissions(['admin']) && 
+            $formHandler->deleteProduct();
+        break;
+    
+
+    case 'addMedewerker':
+        // Handle add-mroduct action
+        Functions::checkPermissions(['admin']) && 
+            $formHandler->addMedewerker();
+        break;
+
+    case 'editMedewerker':
+        // Handle edit-medewerker action
+        Functions::checkPermissions(['admin']) && 
+            $formHandler->editMedewerker();
+        break;
+
+    case 'deleteMedewerker':
+        // Handle delete-medewerker action
+        Functions::checkPermissions(['admin']) && 
+            $formHandler->deleteMedewerker();
+        break;
+        
+
+    case 'editAccount':
+        // Handle delete-medewerker action
+        Session::get('loggedIn') && 
+            $formHandler->editAccount();
+        break;
+
+
+    default:
+        // Handle unknown action
+        header("Location: ?page=home");
         break;
 }

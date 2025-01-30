@@ -3,14 +3,16 @@
 use PDO;
 use App\class\Product;
 use App\Utility\Functions;
+
+
 $product = new Product();
+
 ?>
 
-<html>
-    <section class="divider_50px"></section>
-    <section class="main_content">
-        <section>
-            <?php $product->print_product();?>
-        </section>
+
+<section class="divider_50px"></section>
+<section class="main_content">
+    <section>
+        <?php $product->print_product($_GET['id']);?>
     </section>
-</html>
+</section>

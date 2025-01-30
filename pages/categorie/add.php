@@ -1,3 +1,14 @@
+<?php
+
+use App\Utility\Functions;
+use App\Utility\Session;
+
+Functions::displayError(Session::get('categorie.error'));
+Session::delete('categorie.error');
+
+?>
+
+
 <form action='?page=formHandler' method='post' enctype="multipart/form-data">
     <input type='hidden' name='action' value='addCategorie'>
     <label for="categorie">Categorie</label>
