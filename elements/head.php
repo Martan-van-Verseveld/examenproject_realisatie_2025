@@ -11,5 +11,6 @@
     <script src="https://kit.fontawesome.com/79684dd2cf.js" crossorigin="anonymous"></script>
 
     <title><?= Functions::convertToTitle($_GET['page']).' | ' ?? '' ?>Examen Realisatie</title>
+
 </head>
 <body>
