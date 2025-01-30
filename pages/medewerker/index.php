@@ -3,8 +3,8 @@
 use App\Utility\Functions;
 
 
-if ($_GET['page'] === 'categorie.index') {
-    header("Location: ?page=categorie.home");
+if ($_GET['page'] === 'medewerker.index') {
+    header("Location: ?page=medewerker.overzicht");
 }
 
 if (!Functions::checkPermissions(['admin'])) {

@@ -3,8 +3,8 @@
 use App\Utility\Functions;
 use App\Utility\Session;
 
-Functions::displayError(Session::get(Session::get('page') . '.error'));
-Session::delete(Session::get('page') . '.error');
+Functions::displayError(Session::get('login.error'));
+Session::delete('login.error');
 
 ?>
 

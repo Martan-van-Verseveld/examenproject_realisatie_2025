@@ -1,16 +1,16 @@
 <?php declare(strict_types=1);
 
 use PDO;
-use App\Class\Admin;
+use App\class\Rit;
 use App\Utility\Functions;
-$admin = new Admin();
+$rit = new Rit();
 ?>
 
 <html>
     <section class="divider_50px"></section>
     <section class="main_content">
         <section>
-            <?php $admin->print_medewerkers();?>
-</section>
+            <?php $rit->print_ritten();?>
+        </section>
     </section>
 </html>
