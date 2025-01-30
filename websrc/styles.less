@@ -38,21 +38,22 @@
   }
 }
 
-<<<<<<< Updated upstream
+
 .error {
   background: #f00;
 }
 .success {
   background: #0f0;
-=======
-/* Style for the dropdown container */
+}
+
+
 .dropdown {
     position: relative;
     display: block;
     margin: 10px;
 }
 
-/* Style for the dropdown button */
+
 .dropdown-button {
     background-color: #4CAF50;
     color: white;
@@ -62,19 +63,19 @@
     cursor: pointer;
 }
 
-/* Style for the dropdown content (hidden by default) */
+
 .dropdown-content {
     display: none;
     position: absolute;
     background-color: #f1f1f1;
     min-width: 160px;
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    height: 250px;
+    max-height: 250px;
     overflow-y: scroll;
     z-index: 1;
 }
 
-/* Style for dropdown options */
+
 .dropdown-content a {
     color: black;
     padding: 12px 16px;
@@ -86,19 +87,17 @@
     background-color: #ddd;
 }
 
-/* Show dropdown when hovering over the dropdown */
+
 .dropdown:hover .dropdown-content {
     display: block;
 }
 
-/* Style for the dropdown container */
 .dropdown {
     position: relative;
     display: block;
     margin: 10px;
 }
 
-/* Style for the dropdown button */
 .dropdown-button {
     background-color: #4CAF50;
     color: white;
@@ -108,7 +107,6 @@
     cursor: pointer;
 }
 
-/* Style for the dropdown content (hidden by default) */
 .dropdown-content {
     display: none;
     position: absolute;
@@ -120,7 +118,6 @@
     z-index: 1;
 }
 
-/* Style for dropdown options */
 .dropdown-content a {
     color: black;
     padding: 12px 16px;
@@ -132,10 +129,10 @@
     background-color: #ddd;
 }
 
-/* Show dropdown when hovering over the dropdown */
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
 
 .error, .success {
     position: fixed;
@@ -153,7 +150,6 @@
         right: 10px;
         cursor: pointer;
     }
->>>>>>> Stashed changes
 }
 
 .fa {
@@ -180,12 +176,20 @@ header {
   gap: 16px;
 
   &,
-  a {
+  a,
+  .dropdown_click {
     color: white;
+    font-size: 16px;
+  }
+
+  .fa {
+    color: #000;
   }
 
   li {
     margin: 0 10px;
+    display: flex;
+    align-items: center;
   }
 
   .header-title {
@@ -204,6 +208,23 @@ header {
 
     display: flex;
     flex-direction: row;
+  }
+
+  .dropdown {
+    background: none;
+    border: none;
+  }
+
+  .dropdown_click {
+    background: none;
+  }
+
+  .dropdown-content {
+    height: fit-content;
+    background-color: #fff;
+    border: 1px solid black;
+    border-radius: 5px;
+    overflow-y:hidden;
   }
 }
 
