@@ -44,10 +44,9 @@ class Rit
         if (isset($_GET['month']) && is_numeric($_GET['month'])) {
             $query .= " AND MONTH(planning.afspraak_op) = :month";
             $params = ['month' => $_GET['month']];
+            $results = $this->database->query($query, $params);
         }
-
-        // Check if "week" is set
-        if (isset($_GET['week']) && is_numeric($_GET['week'])) {
+        elseif (isset($_GET['week']) && is_numeric($_GET['week'])) {
             $year = (int) date("Y"); // Default to current year
             if (isset($_GET['year']) && is_numeric($_GET['year'])) {
                 $year = $_GET['year']; // Allow custom year input
@@ -67,9 +66,12 @@ class Rit
 
             // Ensure params is formatted as an associative array
             $params = ['start_of_week' => $start_of_week, 'end_of_week' => $end_of_week];
+            $results = $this->database->query($query, $params);
+        }
+        else {
+            $results = $this->database->query($query);
         }
 
-        $results = $this->database->query($query, $params);
         $results = $results->fetchAll(PDO::FETCH_ASSOC);
 
         $headers = [
