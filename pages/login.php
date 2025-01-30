@@ -1,3 +1,14 @@
+<?php
+
+use App\Utility\Functions;
+use App\Utility\Session;
+
+Functions::displayError(Session::get(Session::get('page') . '.error'));
+Session::delete(Session::get('page') . '.error');
+
+?>
+
+
 <div class="containerlogin">
     <h1 class="form-title">Login</h1>
     <form action="?page=formHandler" method="post" enctype="multipart/form-data">

@@ -16,5 +16,3 @@ Door bij ons te winkelen of te doneren, draag je bij aan een beter milieu én st
 🌱 Duurzaam shoppen begint bij Kringloop Centrum Duurzaam!</p>
 </div>
 
-
-
