@@ -24,12 +24,14 @@ Session::delete('login.error');
         <input class="form-input" type="text" name="username" placeholder="Username" max="255" min="255">
         <label class="form-label" for="password">Wachtwoord</label>
         <input class="form-input" type="password" name="password" placeholder="Password" max="255" min="255">
-        <input class="form-button" type="submit" name="login" value="Login">
-        <a href="?page=register">
-            <button class="form-button" type="button">Register</button>
-        </a>
-        <a href="?page=reset">
-            <button class="form-button" type="button">Reset</button>
-        </a>
+        <section class="flex_row">
+            <input class="form-button" type="submit" name="login" value="Login">
+            <a href="?page=register">
+                <button class="form-button" type="button">Register</button>
+            </a>
+            <a href="?page=reset">
+                <button class="form-button" type="button">Reset</button>
+            </a>
+        </section>
     </form>
 </div>
