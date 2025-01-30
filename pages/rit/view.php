@@ -53,27 +53,65 @@ $months = [
 
 <html>
     <section class="divider_50px"></section>
+    <!-- Filter system -->
     <h2>Filter:</h2>
     <section>
         Week
-        <?php
-        foreach ($weeks as $week_num => $week) {
-            ?>
-            <a href="?page=rit.view&week=<?=$week_num?>"><?=$week_num?></a>
+        <div class="dropdown">
             <?php
-        }
-        ?>
+            if (isset($_GET['week'])) {
+                ?>
+                <button class="dropdown_click">Week <?=$_GET['week']?></button>
+                <?php
+            }
+            else {
+                ?>
+                <button class="dropdown_click">Selecteer week</button>
+                <?php
+            }
+            ?>
+            <div class="dropdown-content">
+                <?php
+                foreach ($weeks as $week_num => $week) {
+                    ?>
+                    <a href="?page=rit.view&week=<?=$week_num?>">Week <?=$week_num?></a>
+                    <?php
+                }
+                ?>
+            </div>
+        </div>
     </section>
     <section>
         Maand
+        <div class="dropdown">
         <?php
-        foreach ($months as $month => $month_num) {
+            if (isset($_GET['month'])) {
+                foreach ($months as $month => $month_num) {
+                    if ($month_num == intval($_GET['month'])) {
+                        ?>
+                        <button class="dropdown_click"><?=$month?></button>
+                        <?php
+                    }
+                }
+                ?>
+                <?php
+            }
+            else {
+                ?>
+                <button class="dropdown_click">Selecteer maand</button>
+                <?php
+            }
             ?>
-            <a href="?page=rit.view&month=<?=$month_num?>"><?=$month?></a>
-            <?php
-        }
-        ?>
-        <!-- loop januari tot december -->
+            <div class="dropdown-content">
+                <?php
+                foreach ($months as $month => $month_num) {
+                    ?>
+                    <a href="?page=rit.view&month=<?=$month_num?>"><?=$month?></a>
+                    <?php
+                }
+                ?>
+            </div>
+        </div>
     </section>
     <section class="main_content">
         <section>
