@@ -155,9 +155,21 @@ class FormHandler
         try {
             $sanitizedPOST = DataProcessor::sanitizeData($_POST);
 
+            if (!DataProcessor::validateFields($sanitizedPOST, ['email', 'phone', 'password'])) {
+                Session::set('reset.error', 'Required fields not found.');
+                header("Location: ?page=reset");
+                exit();
+            }
+
+            if (empty($sanitizedPOST['email']) || empty($sanitizedPOST['phone']) || empty($sanitizedPOST['password'])) {
+                Session::set('reset.error', 'Required fields not found.');
+                header("Location: ?page=reset");
+                exit();
+            }
+
             if (!DataProcessor::validateType([$sanitizedPOST['email'] => FILTER_VALIDATE_EMAIL])) {
                 Session::set('reset.error', 'Invalid email format.');
-                header("Location: ?page=home");
+                header("Location: ?page=reset");
                 exit();
             }
 
@@ -171,7 +183,7 @@ class FormHandler
 
             if ($result->rowCount() <= 0) {
                 Session::set('reset.error', value: 'Email not found.');
-                header("Location: ?page=home");
+                header("Location: ?page=reset");
                 exit();
             }
 
@@ -179,7 +191,7 @@ class FormHandler
 
             if ($row['email'] !== $sanitizedPOST['email'] && $row['telefoon'] !== $sanitizedPOST['phone']) {
                 Session::set('reset.error', 'Your address and/or phone number do not match our records.');
-                header("Location: ?page=home");
+                header("Location: ?page=reset");
                 exit();
             }
 
