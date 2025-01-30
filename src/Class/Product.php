@@ -9,9 +9,9 @@ use App\Utility\Functions;
 
 
 /**
- * FormHandler
+ * Product Class
  * 
- * @author Roan van Dam
+ * @author Roan van Dam, Martan van Verseveld
  */
 class Product
 {
@@ -29,15 +29,14 @@ class Product
         $this->database = Database::getInstance();
     }
 
-    public function print_product() {
-        $query = 
-        "
-        SELECT * FROM artikel WHERE id = :id
-        LIMIT 100
+    public function print_products() {
+        $query = "
+            SELECT * 
+                FROM artikel
+                ORDER BY id ASC;
         ";
 
-        $params = ['id' => $_GET['id']];
-        $results = $this->database->query($query, $params);
+        $results = $this->database->query($query);
         $results = $results->fetchAll(PDO::FETCH_ASSOC);
         $headers = [
             'id', 'naam', 'omschrijving',
@@ -53,5 +52,30 @@ class Product
             return $results;
         }, $results);
         Functions::drawTable($headers, $results);
+    }
+
+    public function print_product($id) {
+        $query = "
+            SELECT * 
+                FROM artikel 
+                WHERE id = :id
+        ";
+
+        $params = ['id' => $id];
+        $results = $this->database->query($query, $params);
+        $results = $results->fetchAll(PDO::FETCH_ASSOC);
+        $headers = [
+            'id', 'naam', 'omschrijving',
+            'merk', 'kleur', 'afmeting',
+            'aantal', 'EAN_number', 'acties'
+        ];
+        $results = array_map(function($results) {
+            $results['acties'] = "
+                <a href='?page=product.edit&id=" . $results['id'] . "'>Edit</a>
+                <a href='?page=product.delete&id=" . $results['id'] . "'>Delete</a>
+            ";
+            return $results;
+        }, $results);
+        Functions::drawTable($headers, $results, 'vertical');
     }
 }

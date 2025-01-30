@@ -9,7 +9,7 @@ use App\Utility\Functions;
 
 
 /**
- * FormHandler
+ * Rit Class
  * 
  * @author Roan van Dam
  */
