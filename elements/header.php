@@ -1,5 +1,6 @@
 <?php use App\Utility\Functions; use App\Utility\Session; ?>
 <header>
+<img class="logo" src="websrc/images/centrum_duurzaam_logo.png" alt="logo">
     <p class="header-title">Kringloop centrum</p>
     <ul class="nav">
         <li><a href="?page=home">Home</a></li>
@@ -18,4 +19,6 @@
         <li><a href="?page=login">Login</a></li>
     <?php endif; ?>
     </ul>
+    
+        
 </header>
