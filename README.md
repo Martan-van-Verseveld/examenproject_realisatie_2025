@@ -2,10 +2,10 @@
 Dit is het ingeleverde eindexamen project voor de opleiding mbo4 Software Developer op het mboRijnland.
 
 ## Inhoud
-- [uitkomst](#uitkomst)
-- [Het Project](#het-project)
-  - [inleiding](#project-inleiding)
-  - [doel](#project-doel)
+- [Uitkomst](#uitkomst)
+- [Het project](#het-project)
+  - [Inleiding](#project-inleiding)
+  - [Doel](#project-doel)
 - [Programmeurs](#programmeurs)
 
 
@@ -39,3 +39,4 @@ De nieuwe applicatie is bedoeld voor de medewerkers van de stichting. Hierbij is
 - [Jelmer de Leeuw](https://github.com/JelmerDeLeeuw)
 - [Roan van Dam](https://github.com/RoanvDam)
 - **[Martan van Verseveld](https://github.com/Martan-van-Verseveld)**
+
